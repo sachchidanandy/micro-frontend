@@ -3,7 +3,7 @@ const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
 const packageJSON = require('../package.json');
 
-const hostName = process.env.PRODUCTION_HOST;
+const productinDomain = process.env.PRODUCTION_DOMAIN;
 
 const prodConfig = {
   mode: 'production',
@@ -15,7 +15,7 @@ const prodConfig = {
     new ModuleFederationPlugin({
       name: 'container',
       remotes: {
-        marketing: `marketing@http://${hostName}/marketing/remoteEntry.js`,
+        marketing: `marketing@${productinDomain}/marketing/latest/remoteEntry.js`,
       },
       shared: packageJSON.dependencies,
     }),

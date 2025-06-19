@@ -1,22 +1,20 @@
-const ModuleFederationPlugin = require('webpack').container.ModuleFederationPlugin;
 const { merge } = require('webpack-merge');
+const { ModuleFederationPlugin } = require('webpack').container;
 const commonConfig = require('./webpack.common.js');
 const packageJSON = require('../package.json');
-
-const productinDomain = process.env.PRODUCTION_DOMAIN;
 
 const prodConfig = {
   mode: 'production',
   output: {
     filename: '[name].[contenthash].js',
-    publicPath: '/container/latest/',
+    publicPath: '/auth/latest/',
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: 'container',
-      remotes: {
-        marketing: `marketing@${productinDomain}/marketing/latest/remoteEntry.js`,
-        auth: `auth@${productinDomain}/auth/latest/remoteEntry.js`,
+      name: 'auth',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './AuthApp': './src/bootstrap.js'
       },
       shared: packageJSON.dependencies,
     }),

@@ -23,7 +23,7 @@ export default () => {
   };
 
   return (
-    <StylesProvider generateClassName={generateClassName}>
+    <StylesProvider injectFirst generateClassName={generateClassName}>
       <BrowserRouter>
         <div>
           <Header isSignedIn={isSignedIn} onSignOut={signOutUser} />
